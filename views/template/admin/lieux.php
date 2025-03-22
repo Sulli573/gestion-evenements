@@ -19,9 +19,11 @@ $apiUrl="http://localhost/PHP2/api/lieux";
 $response=file_get_contents($apiUrl);
 $allLieux = json_decode($response, true);
 
+
 if(!isset($allLieux['lieux']) || empty($allLieux['lieux'])) {
   #Au lieu d'afficher les erreurs on affichera un tableau vide à l'administrateur
   $allLieux['lieux'] = [];
+  
 }
 ?>
 
@@ -106,6 +108,7 @@ if(!isset($allLieux['lieux']) || empty($allLieux['lieux'])) {
                       </tr>
                     </thead>
                     <tbody>
+                      <?php var_dump($response);?>
                       <!--Contenu des colonnes va créer une ligne par événement avec valeurs dans td-->
                       <?php foreach($allLieux['lieux'] as $lieu) :?> 
                         <tr>

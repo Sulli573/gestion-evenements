@@ -124,7 +124,7 @@ if(!isset($allUsers['users']) || empty($allUsers['users'])) {
                                     data-role="<?= htmlspecialchars($user['role_utilisateur']) ?>"
                                     data-suspended="<?= $user['is_suspended'] ?>"
                                     data-active="<?= $user['is_active'] ?>"
-                                    data-motif="<?= htmlspecialchars($user['motif_suspension']) ?>">
+                                    data-motif="<?= htmlspecialchars($user['motif_suspension'] ?? '') ?>">
                                     <i class="bx bx-edit-alt me-1"></i> Modifier
                                 </button>
 
@@ -284,8 +284,8 @@ if(!isset($allUsers['users']) || empty($allUsers['users'])) {
         });
 
         // Gestion de la soumission du formulaire Update
-        document.getElementById("editUserForm").addEventListener("submit", function (event) {
-            event.preventDefault();
+        document.getElementById("editUserForm").addEventListener("submit", function (user) {
+            user.preventDefault();
             
             let formData = new FormData(this);
             formData.append("csrf_token", "<?= $_SESSION['csrf_token'] ?? '' ?>");
@@ -328,6 +328,7 @@ if(!isset($allUsers['users']) || empty($allUsers['users'])) {
                     .catch(error => console.error("Erreur:", error));
                 }
             });
+            
         });
     });
 </script>
