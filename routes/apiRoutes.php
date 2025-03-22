@@ -22,16 +22,30 @@ $organisateurModel = new OrganisateurModel($database);
 $organisateurController = new OrganisateurController($organisateurModel);
 
 //Les routes pour les utilisateurs
+
+
+//get All
 $router->map('GET','/api/users',function() use ($userController){
     echo $userController->getAllUsers();
 });
 
+//update
 $router->map('POST','/api/users/update',function() use ($userController){
     $data=$_POST;
     $csrf_token=$_POST['csrf_token'] ?? '';
     
     echo $userController->updateUser($data['id_utilisateur'],$data['nom_utilisateur'],$data['courriel_utilisateur'],
     $data['role_utilisateur'],$data['is_active'],$data['is_suspended'],$data['motif_suspension'],$csrf_token);
+});
+
+//delete
+$router->map('POST','/api/users/delete',function() use ($userController){
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    $id_user=$data['id'] ?? null;
+    $csrf_token=$data['csrf_token'] ?? '';
+    
+    echo $userController->deleteUserById($id_user,$csrf_token);
 });
 
 //Les routes pour les evenements
@@ -42,22 +56,28 @@ $router->map('GET','/api/events',function() use ($eventController){
 $router->map('GET','/api/events/[i:id]',function($id) use ($eventController){
     echo $eventController->getEventById($id);
 });
-
-$router->map('POST','/api/event/update',function() use ($eventController){
+//j'ai changé event en events
+$router->map('POST','/api/events/update',function() use ($eventController){
     $data=$_POST;
     $csrf_token=$_POST['csrf_token'] ?? '';
     
     echo $eventController->update($data,$csrf_token);
 });
 
-$router->map('POST','/api/event/create',function() use ($eventController){
-    $data=$_POST;
-    $csrf_token=$_POST['csrf_token'] ?? '';
+//delete
+$router->map('POST','/api/events/delete',function() use ($eventController){
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    $id_event=$data['id'] ?? null;
+    $csrf_token=$data['csrf_token'] ?? '';
     
-    echo $eventController->create($data,$csrf_token);
+    echo $eventController->deleteEventById($id_event,$csrf_token);
+});
+//Les routes pour lieux
+$router->map('GET','/api/lieux',function() use ($lieuController){
+    echo $lieuController->getAllLieux();
 });
 
-//Les routes pour lieux
 //add
 $router->map('POST','/api/lieux/add',function() use ($lieuController){
     $data = json_decode(file_get_contents("php://input"), true);
@@ -67,7 +87,8 @@ $router->map('POST','/api/lieux/add',function() use ($lieuController){
     
     echo $lieuController->create($data,$csrf_token);
 });
-//getall
+
+//getAll
 $router->map('GET','/api/lieux',function() use ($lieuController){
     echo $lieuController->getAllLieux();
 });
@@ -75,6 +96,7 @@ $router->map('GET','/api/lieux',function() use ($lieuController){
 $router->map('GET','/api/lieux/[i:id]',function($id) use ($lieuController){
     echo $lieuController->getById($id);
 });
+
 //update
 $router->map('POST','/api/lieux/update',function() use ($lieuController){
     $data=$_POST;
@@ -93,9 +115,8 @@ $router->map('POST','/api/lieux/delete',function() use ($lieuController){
 });
 
 
-
-
 //Les routes pour les organisateurs
+
 //add
 $router->map('POST','/api/organisateurs/add',function() use ($organisateurController){
     $data = json_decode(file_get_contents("php://input"), true);
@@ -105,10 +126,12 @@ $router->map('POST','/api/organisateurs/add',function() use ($organisateurContro
     
     echo $organisateurController->create($data,$csrf_token);
 });
+
 //getAll
 $router->map('GET','/api/organisateurs',function() use ($organisateurController){
     echo $organisateurController->getAllOrganisateurs();
 });
+
 //update
 $router->map('POST','/api/organisateurs/update',function() use ($organisateurController){
     $data=$_POST;
@@ -116,15 +139,18 @@ $router->map('POST','/api/organisateurs/update',function() use ($organisateurCon
     
     echo $organisateurController->updateOrganisateur($data,$csrf_token);
 });
+
 //delete
+//Que représente $organisateurController ?
 $router->map('POST','/api/organisateurs/delete',function() use ($organisateurController){
     $data = json_decode(file_get_contents("php://input"), true);
-
+    //est-ce qu'il faut que la variable ($id_orga) soit la même que dans le controller?
     $id_orga=$data['id'] ?? null;
     $csrf_token=$data['csrf_token'] ?? '';
     
     echo $organisateurController->deleteOrganisateurById($id_orga,$csrf_token);
 });
+
 
 
 ?>

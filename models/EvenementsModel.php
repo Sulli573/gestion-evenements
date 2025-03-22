@@ -2,28 +2,27 @@
 require_once "DefaultModel.php";
 
 class EvenementsModel extends DefaultModel {
-    public function create($nom,$date,$description,$place,$type_event,$id_lieu,$heureDebut,$heureFin,$prix,$id_orga){
+    public function create($nom,$date,$description,$place,$image,$type_event,$id_lieu,$heureDebut,$heureFin,$prix){
         try{
             $query="INSERT INTO evenements (nom_evenement,date_evenement,description_evenement,place_evenement,
-                    place_restantes,type_evenement,id_lieu,heure_debut,heure_fin,prix_evenement,id_organisateur)
-                    VALUES(:nom,:date_event,:description_event,:place,:place_rest,:types,:lieu,
-                    :heure_debut,:heure_fin,:prix_evenement,:orga)";
+                    place_restantes,image_evenement,type_evenement,id_lieu,heure_debut,heure_fin,prix_evenement)
+                    VALUES(:nom,:date_event,:description_event,:place,:place_rest,:images,:types,:lieu,:heure_debut,:heure_fin,:prix_evenement)";
             $stmt=$this->db->prepare($query);
             $stmt->bindParam(':nom',$nom,PDO::PARAM_STR);
             $stmt->bindParam(':date_event',$date,PDO::PARAM_STR);
             $stmt->bindParam(':description_event',$description,PDO::PARAM_STR);
             $stmt->bindParam(':place',$place,PDO::PARAM_STR);
             $stmt->bindParam(':place_rest',$place,PDO::PARAM_STR);
+            $stmt->bindParam(':images',$image,PDO::PARAM_STR);
             $stmt->bindParam(':types',$type_event,PDO::PARAM_STR);
             $stmt->bindParam(':lieu',$id_lieu,PDO::PARAM_STR);
             $stmt->bindParam(':heure_debut',$heureDebut,PDO::PARAM_STR);
             $stmt->bindParam(':heure_fin',$heureFin,PDO::PARAM_STR);
             $stmt->bindParam(':prix_evenement',$prix,PDO::PARAM_STR);
-            $stmt->bindParam(':orga',$id_orga,$id_orga !==null ? PDO::PARAM_INT : PDO::PARAM_STR);
             if($stmt->execute()){
-                return $this->db->lastInsertId();
+                return true;
             }else{
-                return false;
+                return 'Erreur lors de l\'insertion';
             }
         }catch(PDOException $e){
             return "Erreur SQL: ".$e->getMessage();
@@ -41,27 +40,27 @@ class EvenementsModel extends DefaultModel {
             $place_restante=(int)$data['place_restantes'];
             $place_ajoute=0;
             //old_place=50
-            //place=60
-            //place_ajoute=60-50=10
-            //place_restante=10
-            //place_restante=10+10=20
+            //place=30
+            //place_ajoute=30-50=-20
+              //place_restante=10
+            //place_restante=10-20=-10
             if($old_place < $place){
-                $place_ajoute=$place-$old_place;
-                $place_restante=$place_restante+$place_ajoute;
+                $place_ajoute = $place - $old_place;
+                $place_restante = $place_restante + $place_ajoute;
+                $place = $place + $place_ajoute;
             }
-            elseif($old_place > $place){
-                $placeEnleve=$old_place - $place;
-                if($place_restante<$placeEnleve){
-                    echo json_encode(["status" => "error","message" => "T'as eliminé meme les places réservée=>opération interdite"]);
+            elseif($old_place > $place) {
+                $placeEnleve = $old_place - $place;
+                if($place_restante < $placeEnleve) {
+                    echo json_encode(["status" => "error","message" => "T'as eliminé meme les places réservées => opération interdite"]);
                     return;
                 }
-                $place_restante=$place_restante-$placeEnleve;
+                $place_restante=$place_restante - $placeEnleve;
             }
             
             $query="UPDATE evenements set nom_evenement=:nom,date_evenement=:date_event,
-            description_evenement=:description_event, place_evenement=:place, place_restantes=:place_rest,
-            type_evenement=:types_event, id_lieu=:lieu, id_organisateur=:organisateur, heure_debut=:heure_debut,
-            heure_fin=:heure_fin, prix_evenement=:prix
+            description_evenement=:description_event,place_evenement=:place,place_restantes=:place_rest,
+            type_evenement=:types_event,id_lieu=:lieu,id_organisateur=:organisateur,heure_debut=:heure_debut,heure_fin=:heure_fin,prix_evenement=:prix
             WHERE id_evenement=:id";
             $stmt=$this->db->prepare($query);
             $stmt->bindParam(':nom',$nom,PDO::PARAM_STR);
@@ -69,6 +68,7 @@ class EvenementsModel extends DefaultModel {
             $stmt->bindParam(':description_event',$description,PDO::PARAM_STR);
             $stmt->bindParam(':place',$place,PDO::PARAM_INT);
             $stmt->bindParam(':place_rest',$place_restante,PDO::PARAM_INT);
+            // $stmt->bindParam(':images',$image,PDO::PARAM_STR);
             $stmt->bindParam(':types_event',$type_event,PDO::PARAM_STR);
             $stmt->bindParam(':lieu',$id_lieu,PDO::PARAM_STR);
             $stmt->bindParam(':id',$id,PDO::PARAM_STR);
@@ -76,7 +76,6 @@ class EvenementsModel extends DefaultModel {
             $stmt->bindParam(':heure_debut',$heureDebut,PDO::PARAM_STR);
             $stmt->bindParam(':heure_fin',$heureFin,PDO::PARAM_STR);
             $stmt->bindParam(':prix',$prix,PDO::PARAM_STR);
-
             if($stmt->execute()){
                 return true;
             }else{
@@ -132,7 +131,7 @@ class EvenementsModel extends DefaultModel {
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':id_event',$id_event, PDO::PARAM_INT);
             $stmt->execute();
-            $result=$stmt->fetch(PDO::FETCH_ASSOC);
+            $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
                 if($result) {
                     return $result;
                 }else {
@@ -195,14 +194,6 @@ class EvenementsModel extends DefaultModel {
         }catch(PDOException $e){
             return "Erreur SQL: ".$e->getMessage();
         }
-    }
-
-    public function updateImage($id_event,$fileName){
-        $query="UPDATE evenements set image_evenement = :image_event where id_evenement= :id";
-        $stmt=$this->db->prepare($query);
-        $stmt->bindParam(':image_event',$fileName,PDO::PARAM_STR);
-        $stmt->bindParam(':id',$id_event,PDO::PARAM_STR);
-        return $stmt->execute();
     }
 }
 
