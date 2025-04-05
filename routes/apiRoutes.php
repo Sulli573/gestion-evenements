@@ -5,9 +5,13 @@ require_once __DIR__ . '/../controller/UserController.php';
 require_once __DIR__ . '/../models/UserModel.php';
 require_once __DIR__ . '/../controller/LieuController.php';
 require_once __DIR__ . '/../controller/OrganisateurController.php';
+require_once __DIR__ . '/../controller/InscrireController.php';
+require_once __DIR__ . '/../models/InscrireModel.php';
 require_once __DIR__ . '/../models/LieuModel.php';
 require_once __DIR__ . '/../models/OrganisateurModel.php';
 require_once __DIR__ . '/../config/sessionManager.php';
+
+
 
 $eventModel=new EvenementsModel();
 $eventController=new EvenementController($eventModel);
@@ -20,6 +24,9 @@ $lieuController = new LieuController($lieuModel);
 
 $organisateurModel = new OrganisateurModel($database);
 $organisateurController = new OrganisateurController($organisateurModel);
+
+$inscrireModel = new InscrireModel($database);
+$inscrireController = new InscrireController($inscrireModel);
 
 //Les routes pour les utilisateurs
 $router->map('GET','/api/users',function() use ($userController){
@@ -126,5 +133,16 @@ $router->map('POST','/api/organisateurs/delete',function() use ($organisateurCon
     echo $organisateurController->deleteOrganisateurById($id_orga,$csrf_token);
 });
 
+// Les routes d'achat des tickets
+
+//Achat/S'inscrire
+$router->map('POST','/api/inscrire/create',function() use ($inscrireController){
+    $data=$_POST;
+    $csrf_token=$_POST['csrf_token'] ?? '';
+    
+    echo $inscrireController->create($data,$csrf_token);
+});
+
+//Annuler inscription
 
 ?>

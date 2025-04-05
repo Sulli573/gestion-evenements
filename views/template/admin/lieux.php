@@ -4,6 +4,7 @@ require_once __DIR__ . '/../../../config/loadEnv.php';
 require_once __DIR__ . '/../../../models/LieuModel.php';
 require_once __DIR__ . '/../../../controller/LieuController.php';
 require_once __DIR__ . '/../../../config/sessionManager.php';
+require_once __DIR__ . '/../../partial/navbar.php';
 
 loadEnv(__DIR__ . '/../../../.env');
 

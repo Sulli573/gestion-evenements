@@ -8,6 +8,7 @@ require_once __DIR__ . '/../../../controller/EvenementController.php';
 require_once __DIR__ . '/../../../controller/LieuController.php';
 require_once __DIR__ . '/../../../controller/OrganisateurController.php';
 require_once __DIR__ . '/../../../config/sessionManager.php';
+require_once __DIR__ . '/../../partial/navbar.php';
 
 loadEnv(__DIR__ . '/../../../.env');
 
@@ -138,7 +139,7 @@ if (!isset($allLieux['lieux']) || empty($allLieux['lieux'])) {
                                                 </button>
 
                                                 <button type="button" class="btn btn-danger delete-btn"
-                                                    data-id="<?= $lieu['id'] ?>">
+                                                    data-id="<?= $event['id_evenement'] ?>">
                                                     <i class="bx bx-trash me-1"></i> Supprimer
                                                 </button>
                                             </td>

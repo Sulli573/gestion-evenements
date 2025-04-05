@@ -21,7 +21,7 @@ $id_event=intval($_GET['id']);
 $apiUrl="http://localhost/PHP2/api/events/$id_event";
 $response=file_get_contents($apiUrl);
 $response = json_decode($response, true);
-$event=$response['event'][0];
+$event=$response['event'];
 
 $id_lieu=$event['id_lieu'];
 $apiUrl="http://localhost/PHP2/api/lieux/$id_lieu";

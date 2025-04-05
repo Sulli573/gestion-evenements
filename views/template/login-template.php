@@ -3,6 +3,7 @@ require_once __DIR__ . '/../../config/DatabaseManager.php';
 require_once __DIR__ . '/../../config/loadEnv.php';
 require_once __DIR__ . '/../../models/UserModel.php';
 require_once __DIR__ . '/../../controller/LoginController.php';
+require_once __DIR__ . '/../../config/sessionManager.php';
 
 loadEnv(__DIR__ . '/../../.env');
 

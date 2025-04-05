@@ -1,11 +1,15 @@
 <?php
 require_once __DIR__ . '/../config/sessionManager.php';
+require_once __DIR__ . '/../models/TokenModel.php';
+
 
 class LoginController {
 private $userModel; /* car on va utiliser la methode get email */
+private $TokenModel;
 
 public function __construct($userModel){
     $this->userModel=$userModel;
+    $this->TokenModel=new TokenModel();
 }
 
 public function login($email,$mot_de_passe){
@@ -25,6 +29,10 @@ public function login($email,$mot_de_passe){
         $_SESSION['nom_utilisateur'] = htmlspecialchars($user['nom_utilisateur'],ENT_QUOTES,'UTF-8');
         $_SESSION['role_utilisateur'] = htmlspecialchars($user['role_utilisateur'],ENT_QUOTES,'UTF-8'); //recuperation des données
 
+        $token=$this->TokenModel->generateToken($user['id_utilisateur']);
+        $_SESSION['token'] = $token;
+        
+
         if ($user['role_utilisateur'] === 'admin'){
             return json_encode((["status" => "Success","message" => "Connexion reussie - role adminstrateur"]));
         }else{
@@ -34,7 +42,13 @@ public function login($email,$mot_de_passe){
     }else{
         return json_encode((["status" => "erreur","message" => "Email ou mot de passe incorrecte"]));
     }
- }                                                  
+ }   
+ public function logout() {
+    if($_SESSION['id_utilisateur'] && $_SESSION['token']){
+        $this->TokenModel->deleteToken($_SESSION['token']);
+        session_destroy();
+    }
+ }                                               
 }
 
 ?>

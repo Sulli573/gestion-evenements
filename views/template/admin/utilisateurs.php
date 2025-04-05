@@ -4,6 +4,10 @@ require_once __DIR__ . '/../../../config/DatabaseManager.php';
 require_once __DIR__ . '/../../../config/loadEnv.php';
 require_once __DIR__ . '/../../../models/UserModel.php';
 require_once __DIR__ . '/../../../controller/UserController.php';
+// require_once __DIR__ . '/../../../middlewares/authAdmin.php';
+require_once __DIR__ . '/../../../config/sessionManager.php';
+
+
 
 
 loadEnv(__DIR__ . '/../../../.env');
@@ -63,7 +67,7 @@ if(!isset($allUsers['users']) || empty($allUsers['users'])) {
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <!-- Page CSS -->
+    
 
     <!-- Helpers -->
     <script src="../../assets/vendor/js/helpers.js"></script>
@@ -73,6 +77,8 @@ if(!isset($allUsers['users']) || empty($allUsers['users'])) {
   </head>
 
   <body>
+  <?php require_once __DIR__ . '/../../partial/navbar.php';?>
+  
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -237,12 +243,13 @@ if(!isset($allUsers['users']) || empty($allUsers['users'])) {
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="../../assets/js/main.js"></script>
+    <script src="../../../assets/js/main.js"></script>
 
     <!-- Page JS -->
 
     <!-- Place this tag before closing body tag for github widget button. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
   </body>
   <style>
     body {
@@ -332,3 +339,7 @@ if(!isset($allUsers['users']) || empty($allUsers['users'])) {
         });
     });
 </script>
+
+
+
+

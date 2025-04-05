@@ -3,6 +3,7 @@
 require_once __DIR__ . '/vendor/autoload.php'; //Charger AltoRouter
 require_once __DIR__ . '/config/DatabaseManager.php';
 require_once __DIR__ . '/config/loadEnv.php';
+require_once __DIR__ . '/config/sessionManager.php';
 
 loadEnv(__DIR__ . '/.env');
 
@@ -25,7 +26,8 @@ if($match && is_callable($match['target'])) {
     call_user_func_array($match['target'],$match['params']);
 }else{
     http_response_code(404);
-    echo json_encode(["status" => "error","message" => "Page non trouvee"]);
+    require_once __DIR__ . '/views/partial/error-page-404.html';
+    exit;
 }
 
 

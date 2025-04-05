@@ -3,6 +3,7 @@ require_once __DIR__ . '/../../config/DatabaseManager.php';
 require_once __DIR__ . '/../../config/loadEnv.php';
 require_once __DIR__ . '/../../models/EvenementsModel.php';
 require_once __DIR__ . '/../../controller/EvenementController.php';
+require_once __DIR__ . '/../../config/sessionManager.php';
 
 loadEnv(__DIR__ . '/../../.env');
 
@@ -23,6 +24,9 @@ $pastEventsJson=$event_controller->getPassEvents();
 $upcomingEvents=json_decode($upcomingEventsJson,true);
 $pastEvents=json_decode($pastEventsJson,true);
 
+// echo $_SESSION['id_utilisateur'];
+// echo $_SESSION['nom_utilisateur'];
+// echo $_SESSION['role_utilisateur'];
 ?>
 
 <!DOCTYPE html>

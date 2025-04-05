@@ -13,7 +13,7 @@ class InscrireController{
             return json_encode((["status" => "Erreur","message" => "Token CSRF invalide"]));
         }
 
-        $required_fields=['id_user','id_event'];
+        $required_fields=['id_user','id_event','date_inscription'];
         foreach($required_fields as $field){
             if(empty($data[$field])){
                 echo json_encode(["status" => "error","message" => "Le champ ".$field." est requis"]);
@@ -23,12 +23,13 @@ class InscrireController{
 
         $id_user=filter_var($data['id_user'],FILTER_VALIDATE_INT);
         $id_event=filter_var($data['id_event'],FILTER_VALIDATE_INT);
+        $date_inscription=htmlspecialchars(trim($data['date_inscription']),ENT_QUOTES,'UTF-8');
         if(!$id_event || !$id_user){
             return json_encode(["status" => "error","message" => "ID event ou ID user invalide!!"]);
         }
 
         try{
-            $result=$this->inscrireModel->create($id_user,$id_event);
+            $result=$this->inscrireModel->create($id_user,$id_event,$date_inscription);
             return json_encode(["status" => $result ? "success":"erreur","message" => $result ? "inscription ajoute avec succes" : "Erreur lors de l'inscription"]);
         }catch(Exception $e){
             echo json_encode(["status" => "error","message" => "Erreur serveur : ".$e->getMessage()]);
