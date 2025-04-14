@@ -9,7 +9,9 @@
 // require_once 'controller/InscrireController.php';
 // require_once 'models/InscrireModel.php';
 require_once 'controller/UserController.php';
+require_once 'controller/InscrireController.php';
 require_once 'models/UserModel.php';
+require_once 'models/InscrireModel.php';
 require_once 'config/DatabaseManager.php';
 require_once 'config/loadEnv.php';
 loadEnv("./.env");
@@ -21,6 +23,14 @@ $database = new DatabaseManager(
     $_ENV['DB_USER'],
     $_ENV['DB_PASS']
 );
+
+$model=new InscrireModel();
+$controller = new InscrireController($model);
+$data=["id_user"=>14,
+"id_event"=>12,
+"nbr_ticket"=>1];
+$controller->create($data,$_SESSION['csrf_token']);
+
 
 // $eventModel=new UserModel();
 // $controller=new UserController($eventModel);

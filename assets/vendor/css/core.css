@@ -137,6 +137,7 @@
   }
 }
 
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -23699,6 +23700,9 @@ html:not(.layout-footer-fixed) .content-wrapper {
   border-color: rgba(56, 69, 81, 0.0791315686);
 }
 
+.footer.bg {
+  color:#007bff;
+}
 .footer.bg-white {
   color: #384551;
 }

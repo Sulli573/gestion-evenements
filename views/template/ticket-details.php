@@ -13,45 +13,45 @@ $database = new DatabaseManager(
     $_ENV['DB_PASS']
 );
 
-if(!isset($_GET['id']) && empty($_GET['id'])){
+if (!isset($_GET['id']) && empty($_GET['id'])) {
     die("Id evenement non fourni");
 }
 
-$id_event=intval($_GET['id']);
-$apiUrl="http://localhost/PHP2/api/events/$id_event";
-$response=file_get_contents($apiUrl);
+$id_event = intval($_GET['id']);
+$apiUrl = "http://localhost/PHP2/api/events/$id_event";
+$response = file_get_contents($apiUrl);
 $response = json_decode($response, true);
-$event=$response['event'];
+$event = $response['event'];
 
-$id_lieu=$event['id_lieu'];
-$apiUrl="http://localhost/PHP2/api/lieux/$id_lieu";
-$response=file_get_contents($apiUrl);
+$id_lieu = $event['id_lieu'];
+$apiUrl = "http://localhost/PHP2/api/lieux/$id_lieu";
+$response = file_get_contents($apiUrl);
 $response = json_decode($response, true);
-$lieu=$response['lieu'][0];
+$lieu = $response['lieu'][0];
 
-if(!isset($event['event']) || empty($event['event'])) {
+if (!isset($event['event']) || empty($event['event'])) {
     #Au lieu d'afficher les erreurs on affichera un tableau vide à l'utilisateur
     $event['event'] = [];
 }
 
-if(!isset($lieu['lieu']) || empty($lieu['lieu'])) {
+if (!isset($lieu['lieu']) || empty($lieu['lieu'])) {
     #Au lieu d'afficher les erreurs on affichera un tableau vide à l'utilisateur
     $lieu['lieu'] = [];
 }
 
-$dateEvent=new DateTime($event['date_evenement']);
-$heureDebut=new DateTime($event['heure_debut']);
-$heureFin=new DateTime($event['heure_fin']);
+$dateEvent = new DateTime($event['date_evenement']);
+$heureDebut = new DateTime($event['heure_debut']);
+$heureFin = new DateTime($event['heure_fin']);
 
-$formatedDay=$dateEvent->format('l');//Monday,Tuesday,Wednesday
-$formatedStart=$heureDebut->format('H:i');//L'horaire va etre presenter en heure et minute
-$formatedEnd=$heureFin->format('H:i');
+$formatedDay = $dateEvent->format('l'); //Monday,Tuesday,Wednesday
+$formatedStart = $heureDebut->format('H:i'); //L'horaire va etre presenter en heure et minute
+$formatedEnd = $heureFin->format('H:i');
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -70,30 +70,30 @@ $formatedEnd=$heureFin->format('H:i');
     <link rel="stylesheet" type="text/css" href="../../assets/css/owl-carousel.css">
 
     <link rel="stylesheet" href="../../assets/css/tooplate-artxibition.css">
-<!--
+    <!--
 
 Tooplate 2125 ArtXibition
 
 https://www.tooplate.com/view/2125-artxibition
 
 -->
-    </head>
-    
-    <body>
-    
+</head>
+
+<body>
+
     <!-- ***** Preloader Start ***** -->
     <div id="js-preloader" class="js-preloader">
-      <div class="preloader-inner">
-        <span class="dot"></span>
-        <div class="dots">
-          <span></span>
-          <span></span>
-          <span></span>
+        <div class="preloader-inner">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-      </div>
     </div>
     <!-- ***** Preloader End ***** -->
-    
+
     <!-- ***** Pre HEader ***** -->
     <div class="pre-header">
         <div class="container">
@@ -124,9 +124,9 @@ https://www.tooplate.com/view/2125-artxibition
                             <li><a href="index.html">Home</a></li>
                             <li><a href="about.html">About Us</a></li>
                             <li><a href="rent-venue.html">Rent Venue</a></li>
-                            <li><a href="shows-events.html">Shows & Events</a></li> 
-                            <li><a href="tickets.html" class="active">Tickets</a></li> 
-                        </ul>        
+                            <li><a href="shows-events.html">Shows & Events</a></li>
+                            <li><a href="tickets.html" class="active">Tickets</a></li>
+                        </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>
                         </a>
@@ -160,16 +160,16 @@ https://www.tooplate.com/view/2125-artxibition
                 </div>
                 <div class="col-lg-4">
                     <div class="right-content">
-                        <h4><?= htmlspecialchars($event['nom_evenement'])?></h4>
-                        <span><?= htmlspecialchars($event['place_restantes'])?> Tickets still available</span>
+                        <h4><?= htmlspecialchars($event['nom_evenement']) ?></h4>
+                        <span><?= htmlspecialchars($event['place_restantes']) ?> Tickets still available</span>
                         <ul>
-                            <li><i class="fa fa-clock-o"></i><?= htmlspecialchars($formatedDay)?>,  <?= htmlspecialchars($formatedStart)?> to <?= htmlspecialchars($formatedEnd)?></li>
-                            <li><i class="fa fa-map-marker"></i><?= htmlspecialchars($lieu['nom_lieu'])?>,<?= htmlspecialchars($lieu['adresse_lieu'])?></li>
+                            <li><i class="fa fa-clock-o"></i><?= htmlspecialchars($formatedDay) ?>, <?= htmlspecialchars($formatedStart) ?> to <?= htmlspecialchars($formatedEnd) ?></li>
+                            <li><i class="fa fa-map-marker"></i><?= htmlspecialchars($lieu['nom_lieu']) ?>,<?= htmlspecialchars($lieu['adresse_lieu']) ?></li>
                         </ul>
                         <div class="quantity-content">
                             <div class="left-content">
                                 <h6>Standard Ticket</h6>
-                                <p><?= htmlspecialchars($event['prix_evenement'])?>€ per ticket</p>
+                                <p><?= htmlspecialchars($event['prix_evenement']) ?>€ per ticket</p>
                             </div>
                             <div class="right-content">
                                 <div class="quantity buttons_added">
@@ -180,8 +180,8 @@ https://www.tooplate.com/view/2125-artxibition
                             </div>
                         </div>
                         <div class="total">
-                            <h4>Total: <span id="total-price" style="display: inline; font-size:inherit; font-weight:inherit; color:inherit;"><?= htmlspecialchars($event['prix_evenement'])?></span>€</h4>
-                            <div class="main-dark-button"><a href="#">Purchase Tickets</a></div>
+                            <h4>Total: <span id="total-price" style="display: inline; font-size:inherit; font-weight:inherit; color:inherit;"><?= htmlspecialchars($event['prix_evenement']) ?></span>€</h4>
+                            <div class="main-dark-button"><a href="#" id="purchase-btn">Purchase Tickets</a></div>
                         </div>
                         <div class="warn">
                             <p>*You Can Only Buy 5 Tickets For This Show</p>
@@ -203,16 +203,16 @@ https://www.tooplate.com/view/2125-artxibition
                 <div class="col-lg-8">
                     <form id="subscribe" action="" method="get">
                         <div class="row">
-                          <div class="col-lg-9">
-                            <fieldset>
-                              <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email Address" required="">
-                            </fieldset>
-                          </div>
-                          <div class="col-lg-3">
-                            <fieldset>
-                              <button type="submit" id="form-submit" class="main-dark-button">Submit</button>
-                            </fieldset>
-                          </div>
+                            <div class="col-lg-9">
+                                <fieldset>
+                                    <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email Address" required="">
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-3">
+                                <fieldset>
+                                    <button type="submit" id="form-submit" class="main-dark-button">Submit</button>
+                                </fieldset>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -259,9 +259,10 @@ https://www.tooplate.com/view/2125-artxibition
                                 <p>São Conrado, Rio de Janeiro</p>
                             </div>
                             <div class="col-lg-6">
-                                <p class="copyright">Copyright 2021 ArtXibition Company 
-                    
-                                <br>Design: <a rel="nofollow" href="https://www.tooplate.com" target="_parent">Tooplate</a></p>
+                                <p class="copyright">Copyright 2021 ArtXibition Company
+
+                                    <br>Design: <a rel="nofollow" href="https://www.tooplate.com" target="_parent">Tooplate</a>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -278,8 +279,8 @@ https://www.tooplate.com/view/2125-artxibition
                                         <li><a href="index.html" class="active">Home</a></li>
                                         <li><a href="about.html">About Us</a></li>
                                         <li><a href="rent-venue.html">Rent Venue</a></li>
-                                        <li><a href="shows-events.html">Shows & Events</a></li> 
-                                        <li><a href="tickets.html">Tickets</a></li> 
+                                        <li><a href="shows-events.html">Shows & Events</a></li>
+                                        <li><a href="tickets.html">Tickets</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -299,8 +300,9 @@ https://www.tooplate.com/view/2125-artxibition
             </div>
         </div>
     </footer>
-    
-    
+
+
+
 
     <!-- jQuery -->
     <script src="../../assets/js/jquery-2.1.0.min.js"></script>
@@ -313,16 +315,16 @@ https://www.tooplate.com/view/2125-artxibition
     <script src="../../assets/js/scrollreveal.min.js"></script>
     <script src="../../assets/js/waypoints.min.js"></script>
     <script src="../../assets/js/jquery.counterup.min.js"></script>
-    <script src="../../assets/js/imgfix.min.js"></script> 
-    <script src="../../assets/js/mixitup.js"></script> 
+    <script src="../../assets/js/imgfix.min.js"></script>
+    <script src="../../assets/js/mixitup.js"></script>
     <script src="../../assets/js/accordions.js"></script>
     <script src="../../assets/js/owl-carousel.js"></script>
-    
+
     <!-- Global Init -->
     <script src="../../assets/js/custom.js"></script>
     <!-- fonction pour mettre a jour le prix total -->
     <script>
-        document.addEventListener("DOMContentLoaded",function(){
+        document.addEventListener("DOMContentLoaded", function() {
             const quantityInput = document.getElementById("ticket-quantity");
             const ticketPrice = parseFloat(document.getElementById("total-price").textContent);
             const totalPriceElement = document.getElementById("total-price");
@@ -330,44 +332,81 @@ https://www.tooplate.com/view/2125-artxibition
             const plusButton = document.querySelector(".plus");
             const minusButton = document.querySelector(".minus");
 
-            function updateTotal(){
+            function updateTotal() {
                 let quantity = parseInt(quantityInput.value);
-                
-                if(isNaN(quantity) || quantity<1){
+
+                if (isNaN(quantity) || quantity < 1) {
                     quantity = 1;
                 }
-                if(quantity>5){
-                    quantity=5;
+                if (quantity > 5) {
+                    quantity = 5;
                 }
                 quantityInput.value = quantity;
 
-                let total=quantity*ticketPrice;
-                totalPriceElement.textContent=total.toFixed(2);
+                let total = quantity * ticketPrice;
+                totalPriceElement.textContent = total.toFixed(2);
             }
 
             updateTotal();
 
-            plusButton.addEventListener("click",function(){
+            plusButton.addEventListener("click", function() {
                 let quantity = parseInt(quantityInput.value);
-                if(quantity<5){
-                    quantityInput.value=quantity + 1;
+                if (quantity < 5) {
+                    quantityInput.value = quantity + 1;
                     updateTotal();
                 }
             });
-            minusButton.addEventListener("click",function(){
+            minusButton.addEventListener("click", function() {
                 let quantity = parseInt(quantityInput.value);
-                if(quantity>1){
-                    quantityInput.value=quantity - 1;
+                if (quantity > 1) {
+                    quantityInput.value = quantity - 1;
                     updateTotal();
                 }
             });
 
-            quantityInput.addEventListener("change",function(){
+            quantityInput.addEventListener("change", function() {
                 updateTotal();
             });
         });
+
+            //Inscription à un événement
+        const userId = <?= json_encode($_SESSION['id_utilisateur'] ?? null) ?>;
+        const eventId = <?= json_encode($id_event) ?>;
+        const csrfToken = <?= json_encode($_SESSION['csrf_token']) ?>;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("purchase-btn").addEventListener("click", function(e) {
+                e.preventDefault();
+
+                const quantity = parseInt(document.getElementById("ticket-quantity").value);
+                if (!userId || !eventId || !csrfToken) {
+                    alert("Une erreur est survenue, merci de vous reconnecter");
+                    return;
+                }
+
+                fetch('/PHP2/api/inscrire/create', {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: new URLSearchParams({
+                            id_user:userId,
+                            id_event: eventId,
+                            nbr_ticket: quantity,
+                            csrf_token: csrfToken
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.status === "success") {
+                            location.reload();
+                        }
+                    })
+                    .catch(error => console.error("Erreur:", error));
+            });
+        });
     </script>
-  </body>
+</body>
 
 </html>
-

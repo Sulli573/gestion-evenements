@@ -419,8 +419,51 @@ if (!isset($allLieux['lieux']) || empty($allLieux['lieux'])) {
             })
             .catch(error => console.error("Erreur:", error));
         });
+
+        // Suppression d'un evenement
+    document.querySelectorAll(".delete-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                let eventId = this.getAttribute("data-id");
+
+                if (confirm("Voulez-vous vraiment supprimer cet évenement ?")) {
+                    fetch("/PHP2/api/event/delete", {
+                        method: "POST",
+                        body: JSON.stringify({ id_evenement: eventId, csrf_token: "<?= $_SESSION['csrf_token'] ?>" }),
+                        headers: { "Content-Type": "application/json" }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.status === "success") {
+                            location.reload();
+                        }
+                    })
+                    .catch(error => console.error("Erreur:", error));
+                }
+            });
+        });
     });
+
+   
 </script>
+
+<style>
+    body {
+      text-align: left !important;
+      margin-left: 25px;
+      margin-right: 25px;
+    }
+
+    .container-fluid {
+      margin-left: 0 !important;
+      padding: 0 !important;
+    }
+
+    .container-xxl, .layout-container, .layout-page, .content-wrapper {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    </style>
 
 </body>
 </html>

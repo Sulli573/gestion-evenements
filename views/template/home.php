@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,13 +14,13 @@
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.min.css">
 
-    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/font-awesome.css">
 
-    <link rel="stylesheet" type="text/css" href="assets/css/owl-carousel.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/owl-carousel.css">
 
-    <link rel="stylesheet" href="assets/css/tooplate-artxibition.css">
+    <link rel="stylesheet" href="../../assets/css/tooplate-artxibition.css">
 <!--
 
 Tooplate 2125 ArtXibition
@@ -90,14 +91,7 @@ https://www.tooplate.com/view/2125-artxibition
 
     <!-- ***** Main Banner Area Start ***** -->
     <div class="main-banner">
-        <div class="counter-content">
-            <ul>
-                <li>Days<span id="days"></span></li>
-                <li>Hours<span id="hours"></span></li>
-                <li>Minutes<span id="minutes"></span></li>
-                <li>Seconds<span id="seconds"></span></li>
-            </ul>
-        </div>
+      
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -125,28 +119,28 @@ https://www.tooplate.com/view/2125-artxibition
                 <div class="col-lg-12">
                     <div class="owl-show-events owl-carousel">
                         <div class="item">
-                            <a href="event-details.html"><img src="assets/images/show-events-01.jpg" alt=""></a>
+                            <a href="event-details.html"><img src="../../assets/images/show-events-01.jpg" alt=""></a>
                         </div>
                         <div class="item">
-                            <a href="event-details.html"><img src="assets/images/show-events-02.jpg" alt=""></a> 
+                            <a href="event-details.html"><img src="../../assets/images/show-events-02.jpg" alt=""></a> 
                         </div>
                         <div class="item">
-                            <a href="event-details.html"><img src="assets/images/show-events-03.jpg" alt=""></a> 
+                            <a href="event-details.html"><img src="../../assets/images/show-events-03.jpg" alt=""></a> 
                         </div>
                         <div class="item">
-                            <a href="event-details.html"><img src="assets/images/show-events-04.jpg" alt=""></a> 
+                            <a href="event-details.html"><img src="../../assets/images/show-events-04.jpg" alt=""></a> 
                         </div>
                         <div class="item">
-                            <a href="event-details.html"><img src="assets/images/show-events-01.jpg" alt=""></a> 
+                            <a href="event-details.html"><img src="../../assets/images/show-events-01.jpg" alt=""></a> 
                         </div>
                         <div class="item">
-                            <a href="event-details.html"><img src="assets/images/show-events-02.jpg" alt=""></a> 
+                            <a href="event-details.html"><img src="../../assets/images/show-events-02.jpg" alt=""></a> 
                         </div>
                         <div class="item">
-                            <a href="event-details.html"><img src="assets/images/show-events-03.jpg" alt=""></a> 
+                            <a href="event-details.html"><img src="../../assets/images/show-events-03.jpg" alt=""></a> 
                         </div>
                         <div class="item">
-                            <a href="event-details.html"><img src="assets/images/show-events-04.jpg" alt=""></a> 
+                            <a href="event-details.html"><img src="../../assets/images/show-events-04.jpg" alt=""></a> 
                         </div>
                     </div>
                 </div>
@@ -185,7 +179,7 @@ https://www.tooplate.com/view/2125-artxibition
 
     <!-- *** Map ***-->
     <div class="map-image">
-        <img src="assets/images/map-image.jpg" alt="Maps of 3 Venues">
+        <img src="../../assets/images/map-image.jpg" alt="Maps of 3 Venues">
     </div>
 
 
@@ -201,7 +195,7 @@ https://www.tooplate.com/view/2125-artxibition
                 <div class="col-lg-4">
                     <div class="venue-item">
                         <div class="thumb">
-                            <img src="assets/images/venue-01.jpg" alt="">
+                            <img src="../../assets/images/venue-01.jpg" alt="">
                         </div>
                         <div class="down-content">
                             <div class="left-content">
@@ -226,7 +220,7 @@ https://www.tooplate.com/view/2125-artxibition
                 <div class="col-lg-4">
                     <div class="venue-item">
                         <div class="thumb">
-                            <img src="assets/images/venue-02.jpg" alt="">
+                            <img src="../../assets/images/venue-02.jpg" alt="">
                         </div>
                         <div class="down-content">
                             <div class="left-content">
@@ -251,7 +245,7 @@ https://www.tooplate.com/view/2125-artxibition
                 <div class="col-lg-4">
                     <div class="venue-item">
                         <div class="thumb">
-                            <img src="assets/images/venue-03.jpg" alt="">
+                            <img src="../../assets/images/venue-03.jpg" alt="">
                         </div>
                         <div class="down-content">
                             <div class="left-content">
@@ -290,7 +284,7 @@ https://www.tooplate.com/view/2125-artxibition
                 <div class="col-lg-4">
                     <div class="event-item">
                         <div class="thumb">
-                            <a href="event-details.html"><img src="assets/images/event-01.jpg" alt=""></a>
+                            <a href="event-details.html"><img src="../../assets/images/event-01.jpg" alt=""></a>
                         </div>
                         <div class="down-content">
                             <a href="event-details.html"><h4>Radio City Musical Hall</h4></a>
@@ -304,7 +298,7 @@ https://www.tooplate.com/view/2125-artxibition
                 <div class="col-lg-4">
                     <div class="event-item">
                         <div class="thumb">
-                            <a href="event-details.html"><img src="assets/images/event-02.jpg" alt=""></a>
+                            <a href="event-details.html"><img src="../../assets/images/event-02.jpg" alt=""></a>
                         </div>
                         <div class="down-content">
                             <a href="event-details.html"><h4>Madison Square Garden</h4></a>
@@ -318,7 +312,7 @@ https://www.tooplate.com/view/2125-artxibition
                 <div class="col-lg-4">
                     <div class="event-item">
                         <div class="thumb">
-                            <a href="event-details.html"><img src="assets/images/event-03.jpg" alt=""></a>
+                            <a href="event-details.html"><img src="../../assets/images/event-03.jpg" alt=""></a>
                         </div>
                         <div class="down-content">
                             <a href="event-details.html"><h4>Royce Hall</h4></a>
@@ -442,23 +436,23 @@ https://www.tooplate.com/view/2125-artxibition
     </footer>
 
     <!-- jQuery -->
-    <script src="assets/js/jquery-2.1.0.min.js"></script>
+    <script src="../../assets/js/jquery-2.1.0.min.js"></script>
 
     <!-- Bootstrap -->
-    <script src="assets/js/popper.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/popper.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
 
     <!-- Plugins -->
-    <script src="assets/js/scrollreveal.min.js"></script>
-    <script src="assets/js/waypoints.min.js"></script>
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    <script src="assets/js/imgfix.min.js"></script> 
-    <script src="assets/js/mixitup.js"></script> 
-    <script src="assets/js/accordions.js"></script>
-    <script src="assets/js/owl-carousel.js"></script>
+    <script src="../../assets/js/scrollreveal.min.js"></script>
+    <script src="../../assets/js/waypoints.min.js"></script>
+    <script src="../../assets/js/jquery.counterup.min.js"></script>
+    <script src="../../assets/js/imgfix.min.js"></script> 
+    <script src="../../assets/js/mixitup.js"></script> 
+    <script src="../../assets/js/accordions.js"></script>
+    <script src="../../assets/js/owl-carousel.js"></script>
     
     <!-- Global Init -->
-    <script src="assets/js/custom.js"></script>
+    <script src="../../assets/js/custom.js"></script>
 
   </body>
 </html>

@@ -4,6 +4,8 @@ require_once __DIR__ . '/../../config/loadEnv.php';
 require_once __DIR__ . '/../../models/EvenementsModel.php';
 require_once __DIR__ . '/../../controller/EvenementController.php';
 require_once __DIR__ . '/../../config/sessionManager.php';
+require_once __DIR__ . '/../partial/usernavbar.php';
+
 
 loadEnv(__DIR__ . '/../../.env');
 
@@ -15,6 +17,10 @@ $database = new DatabaseManager(
     $_ENV['DB_PASS']
 );
 
+if (!isset($_SESSION['id_utilisateur'])) {
+    header("Location:login-template.php");
+    exit;
+}
 $event_model=new EvenementsModel();
 $event_controller=new EvenementController($event_model);
 
@@ -39,11 +45,12 @@ $pastEvents=json_decode($pastEventsJson,true);
     <meta name="description" content="">
     <meta name="author" content="Tooplate">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
-    <title>Event Artisanat</title>
+    <title>Site Événementiel</title>
     <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/owl-carousel.css">
     <link rel="stylesheet" href="../../assets/css/tooplate-artxibition.css">
+    <link rel="stylesheet" href="../../assets/vendor/css/core.css">
 <!--
 
 Tooplate 2125 ArtXibition
@@ -69,20 +76,18 @@ https://www.tooplate.com/view/2125-artxibition
     <!-- ***** Preloader End ***** -->
     
     <!-- ***** Header Area Start ***** -->
-    <header class="header-area header-sticky">
+    <!-- <header class="header-area header-sticky">
         <div class="container">
             <nav class="main-nav">
                 <a href="index.html" class="logo">Art<em>Xibition</em></a>
                 <ul class="nav">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="rent-venue.html">Rent Venue</a></li>
-                    <li><a href="shows-events.php" class="active">Shows & Events</a></li> 
+                    <li><a href="shows-events.php">Evenements</a></li>
                     <li><a href="tickets.html">Tickets</a></li> 
                 </ul>        
             </nav>
         </div>
-    </header>
+    </header> -->
     <!-- ***** Header Area End ***** -->
 
     <!-- ***** About Us Page ***** -->
@@ -90,8 +95,8 @@ https://www.tooplate.com/view/2125-artxibition
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2>Our Shows & Events</h2>
-                    <span>Check out upcoming and past shows & events.</span>
+                    <h2>Nos Événements</h2>
+                    <span>Voir tous les événements passés et à venir.</span>
                 </div>
             </div>
         </div>
@@ -107,14 +112,9 @@ https://www.tooplate.com/view/2125-artxibition
                                 <div class="row">
                                     <div class="col-lg-8">
                                         <ul>
-                                          <li><a href='#tabs-1'>Upcoming</a></li>
-                                          <li><a href='#tabs-2'>Past</a></li>
+                                          <li><a href='#tabs-1'>À venir</a></li>
+                                          <li><a href='#tabs-2'>Passé</a></li>
                                         </ul>
-                                    </div>
-                                    <div class="col-lg-4">
-                                          <div class="main-dark-button">
-                                              <a href="ticket-details.html">Purchase Tickets</a>
-                                          </div>
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@ https://www.tooplate.com/view/2125-artxibition
                                 <article id='tabs-1'>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <div class="heading"><h2>Upcoming Events</h2></div>
+                                            <div class="heading"><h2>Événements à venir</h2></div>
                                         </div>
                                         <?php if(!empty($upcomingEvents['events'])) :?>
                                             <?php foreach($upcomingEvents['events'] as $event):?>
@@ -184,7 +184,7 @@ https://www.tooplate.com/view/2125-artxibition
                                                 </div>
                                             <?php endforeach; ?>
                                         <?php else:?>
-                                            <p>No Upcoming Events</p>
+                                            <p>Pas d'événements à venir</p>
                                         <?php endif;?>
                                     </div>
                                 </article>
@@ -193,7 +193,7 @@ https://www.tooplate.com/view/2125-artxibition
                                 <article id='tabs-2'>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <div class="heading"><h2>Past Events</h2></div>
+                                            <div class="heading"><h2>Événements passés</h2></div>
                                         </div>
                                         <?php if(!empty($pastEvents['Events'])) :?>
                                             <?php foreach($pastEvents['Events'] as $event):?>
@@ -214,7 +214,7 @@ https://www.tooplate.com/view/2125-artxibition
                                                                             data-place="<?= htmlspecialchars($event['place_evenement']) ?>"
                                                                             data-restantes="<?= htmlspecialchars($event['place_restantes']) ?>"
                                                                             data-type="<?= htmlspecialchars($event['type_evenement']) ?>">
-                                                                            Discover More
+                                                                            Afficher les détails
                                                                         </button>
                                                                     </div>
                                                                 </div>
@@ -249,90 +249,10 @@ https://www.tooplate.com/view/2125-artxibition
                                                 </div>
                                             <?php endforeach; ?>
                                         <?php else:?>
-                                            <p>No past events found.</p>
+                                            <p>Pas d'événement passé trouvé.</p>
                                         <?php endif;?>
                                     </div>
                                 </article>
-
-    <!-- *** Footer *** -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="address">
-                        <h4>Sunny Hill Festival Address</h4>
-                        <span>5 College St NW, <br>Norcross, GA 30071<br>United States</span>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="links">
-                        <h4>Useful Links</h4>
-                        <ul>
-                            <li><a href="#">Info</a></li>
-                            <li><a href="#">Venues</a></li>
-                            <li><a href="#">Guides</a></li>
-                            <li><a href="#">Videos</a></li>
-                            <li><a href="#">Outreach</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="hours">
-                        <h4>Open Hours</h4>
-                        <ul>
-                            <li>Mon to Fri: 10:00 AM to 8:00 PM</li>
-                            <li>Sat - Sun: 11:00 AM to 4:00 PM</li>
-                            <li>Holidays: Closed</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="under-footer">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <p>São Conrado, Rio de Janeiro</p>
-                            </div>
-                            <div class="col-lg-6">
-                                <p class="copyright">Copyright 2021 ArtXibition Company 
-                    
-                    			<br>Design: <a rel="nofollow" href="https://www.tooplate.com" target="_parent">Tooplate</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="sub-footer">
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <div class="logo"><span>Art<em>Xibition</em></span></div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="menu">
-                                    <ul>
-                                        <li><a href="index.html" class="active">Home</a></li>
-                                        <li><a href="about.html">About Us</a></li>
-                                        <li><a href="rent-venue.html">Rent Venue</a></li>
-                                        <li><a href="shows-events.html">Shows & Events</a></li> 
-                                        <li><a href="tickets.html">Tickets</a></li> 
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="social-links">
-                                    <ul>
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -387,7 +307,7 @@ https://www.tooplate.com/view/2125-artxibition
 
     <!-- jQuery -->
     <script src="../../assets/js/jquery-2.1.0.min.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.min.css">
     <!-- Bootstrap -->
     <script src="../../assets/js/popper.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
@@ -414,3 +334,4 @@ https://www.tooplate.com/view/2125-artxibition
     }
 </style>
 </html>
+<?php require_once __DIR__ . '/../partial/footer.php';?>

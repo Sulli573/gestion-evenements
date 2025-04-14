@@ -13,7 +13,7 @@ class InscrireController{
             return json_encode((["status" => "Erreur","message" => "Token CSRF invalide"]));
         }
 
-        $required_fields=['id_user','id_event','date_inscription'];
+        $required_fields=['id_user','id_event','nbr_ticket'];
         foreach($required_fields as $field){
             if(empty($data[$field])){
                 echo json_encode(["status" => "error","message" => "Le champ ".$field." est requis"]);
@@ -23,13 +23,13 @@ class InscrireController{
 
         $id_user=filter_var($data['id_user'],FILTER_VALIDATE_INT);
         $id_event=filter_var($data['id_event'],FILTER_VALIDATE_INT);
-        $date_inscription=htmlspecialchars(trim($data['date_inscription']),ENT_QUOTES,'UTF-8');
+        $nbr_ticket=filter_var($data['nbr_ticket'],FILTER_VALIDATE_INT);
         if(!$id_event || !$id_user){
             return json_encode(["status" => "error","message" => "ID event ou ID user invalide!!"]);
         }
 
         try{
-            $result=$this->inscrireModel->create($id_user,$id_event,$date_inscription);
+            $result=$this->inscrireModel->create($id_user,$id_event,$nbr_ticket);
             return json_encode(["status" => $result ? "success":"erreur","message" => $result ? "inscription ajoute avec succes" : "Erreur lors de l'inscription"]);
         }catch(Exception $e){
             echo json_encode(["status" => "error","message" => "Erreur serveur : ".$e->getMessage()]);
@@ -60,5 +60,27 @@ class InscrireController{
         }catch(Exception $e){
             echo json_encode(["status" => "error","message" => "Erreur serveur : ".$e->getMessage()]);
         }
+    }
+    public function afficherInscriptionByUserId($userId) {
+        if(empty($userId) || !is_numeric($userId)) {
+            echo json_encode(["status" => "error", "message" =>"Id invalide"]);
+            return;
+    }
+    try {
+        $inscription=$this->inscrireModel->afficherInscriptionByUserId($userId);
+        if(!empty($inscription)) {
+            return json_encode([
+                "status" => "success",
+                "inscription" => $inscription
+            ]);
+        }else{
+            return json_encode([
+                "status" => "success",
+                "message" => "Aucune inscription trouvée"
+            ]);
+        }
+    }catch(Exception $e) {
+        echo json_encode(["status" => "error","message" => "Erreur serveur : ".$e->getMessage()]);
+    }
     }
 }

@@ -10,15 +10,16 @@ class InscrireModel extends DefaultModel {
     //     $this->EvenementsModel=$EvenementsModel;
     // }
 
-    public function create($id_utilisateur,$id_evenement){
+    public function create($id_utilisateur,$id_evenement,$nbr_ticket){
         try{
-            $query="INSERT INTO inscrire (id_utilisateur ,id_evenement ,date_inscription) 
-                    VALUES(:id_user,:id_event,:date_inscription)";
+            $query="INSERT INTO inscrire (id_utilisateur ,id_evenement ,date_inscription,nbr_ticket) 
+                    VALUES(:id_user,:id_event,:date_inscription,:nbr_ticket)";
             $stmt=$this->db->prepare($query);
             $date_inscription=date('Y-m-d H:i:s');
             $stmt->bindParam(':id_user',$id_utilisateur,PDO::PARAM_STR);
             $stmt->bindParam(':id_event',$id_evenement,PDO::PARAM_STR);
             $stmt->bindParam(':date_inscription',$date_inscription,PDO::PARAM_STR);
+            $stmt->bindParam(':nbr_ticket',$nbr_ticket,PDO::PARAM_INT);
             if($stmt->execute()){
                 return true;
             }else{
@@ -63,6 +64,18 @@ class InscrireModel extends DefaultModel {
             }
         }catch(PDOException $e){
             return "Erreur SQL: ".$e->getMessage();
+        }
+    }
+    public function afficherInscriptionByUserId($userId) {
+        $sql="SELECT * FROM inscrire i JOIN evenements e ON i.id_evenement = e.id_evenement WHERE i.id_evenement = e.id_evenement AND id_utilisateur=:userId AND e.date_evenement >= NOW()";
+        $stmt=$this->db->prepare($sql);
+        $stmt->bindParam(':userId',$userId,PDO::PARAM_INT);
+        $stmt->execute();
+        $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($result)) {
+            return $result;
+        }else{
+            return "Aucun événement futur n'a été trouvé";
         }
     }
 }

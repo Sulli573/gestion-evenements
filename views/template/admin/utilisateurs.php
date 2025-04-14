@@ -6,6 +6,7 @@ require_once __DIR__ . '/../../../models/UserModel.php';
 require_once __DIR__ . '/../../../controller/UserController.php';
 // require_once __DIR__ . '/../../../middlewares/authAdmin.php';
 require_once __DIR__ . '/../../../config/sessionManager.php';
+require_once __DIR__ . '/../../partial/navbar.php';
 
 
 
@@ -19,6 +20,7 @@ $database = new DatabaseManager(
     $_ENV['DB_USER'],
     $_ENV['DB_PASS']
 );
+
 
 $apiUrl="http://localhost/PHP2/api/users";
 $response=file_get_contents($apiUrl);
@@ -314,8 +316,8 @@ if(!isset($allUsers['users']) || empty($allUsers['users'])) {
             .catch(error => console.error("Erreur:", error));
         });
 
-        // Suppression d'un utilisateur
-        document.querySelectorAll(".delete-btn").forEach(button => {
+        // Suppression d'un evenement
+    document.querySelectorAll(".delete-btn").forEach(button => {
             button.addEventListener("click", function () {
                 let userId = this.getAttribute("data-id");
 
@@ -335,7 +337,6 @@ if(!isset($allUsers['users']) || empty($allUsers['users'])) {
                     .catch(error => console.error("Erreur:", error));
                 }
             });
-            
         });
     });
 </script>
