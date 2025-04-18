@@ -12,7 +12,7 @@ $database = new DatabaseManager(
     $_ENV['DB_PASS']
 );
 
-if($_SESSION['role_utilisateur'] !== 'admin') {
+if($_SESSION['role_utilisateur'] !== 'user') {
     http_response_code(404);
     header("Location: /PHP2/views/partial/error-page-404.html");
     exit;

@@ -15,29 +15,35 @@ $database = new DatabaseManager(
     $_ENV['DB_PASS']
 );
 
-$userModel=new UserModel();
-$loginController=new LoginController($userModel);
+$userModel = new UserModel();
+$loginController = new LoginController($userModel);
 
-$message=''; //stocker le message de retour
+$message = ''; //stocker le message de retour
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $email=$_POST['email'] ?? '';
-    $password=$_POST['password'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
 
-    $responseJson=$loginController->login($email,$password);
-    $response=json_decode($responseJson,true);
+    $responseJson = $loginController->login($email, $password);
+    $response = json_decode($responseJson, true);
 
-    if($response['status'] === 'Success'){
+
+    if ($response['status'] === 'Success') {
+        if ($_SESSION['role_utilisateur'] === 'admin') {
+            header("Location: /PHP2/views/template/admin/events.php");
+            return;
+        }
         header("Location: /PHP2/views/template/shows-events.php"); //redirection vers la page apres connexion reussie
         exit();
-    } else{
-        $message=$response['message'];
+    } else {
+        $message = $response['message'];
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -77,12 +83,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
     </style>
 </head>
+
 <body>
 
     <section class="vh-100">
         <div class="container-fluid">
             <div class="row">
-                
+
                 <div class="col-md-6 left-section">
                     <div class="text-center mb-4">
                         <i class="fas fa-crow fa-2x me-2" style="color: #709085;"></i>
@@ -93,9 +100,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                         <h3 class="fw-normal mb-4 text-center">Log in</h3>
 
                         <!-- Message d'erreur -->
-                        <?php if(!empty($message)):?>
+                        <?php if (!empty($message)): ?>
                             <div class="alert alert-danger text-center">
-                                <?php echo htmlspecialchars($message,ENT_QUOTES,'UTF-8'); ?>
+                                <?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?>
                             </div>
                         <?php endif; ?>
 
@@ -119,14 +126,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                             <a href="#" class="text-muted">Forgot password?</a>
                         </p>
                         <p class="text-center">
-                            Don't have an account? <a href="#" class="link-info">Register here</a>
+                            Don't have an account? <a href="/PHP2/views/template/signup-template.php" class="link-info">Register here</a>
                         </p>
                     </form>
                 </div>
 
                 <div class="col-md-6 right-section d-none d-md-block">
-                    <img src="../../assets/images/default.jpg" 
-                         alt="Login image">
+                    <img src="../../assets/images/default.jpg"
+                        alt="Login image">
                 </div>
 
             </div>
@@ -138,4 +145,5 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 
 </body>
+
 </html>

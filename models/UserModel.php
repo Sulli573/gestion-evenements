@@ -4,12 +4,13 @@
     class UserModel extends DefaultModel {//création d'une classe + instance    
         public function createUser($nom,$email,$mot_de_passe){
            try{
-                $query="INSERT INTO utilisateur (nom_utilisateur,courriel_utilisateur,mot_de_passe_utilisateur) VALUES(:nom,:email,:mot_de_passe)"; 
+                $query="INSERT INTO utilisateur (nom_utilisateur,courriel_utilisateur,mot_de_passe_utilisateur,role_utilisateur) VALUES(:nom,:email,:mot_de_passe,:role_user)"; 
                 $stmt= $this->db->prepare($query);
                 return $stmt->execute([
                     'nom' => $nom,
                     'email' => $email,
-                    'mot_de_passe' => $mot_de_passe
+                    'mot_de_passe' => $mot_de_passe,
+                    'role_user' => 'user'
                 ]);
 
            }catch(PDOException $e){

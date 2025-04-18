@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../config/sessionManager.php';
+require_once 'DefaultModel.php';
 class TokenModel extends DefaultModel {
 
     public function generateToken($userId) {

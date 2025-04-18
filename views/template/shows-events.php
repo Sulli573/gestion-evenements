@@ -17,10 +17,6 @@ $database = new DatabaseManager(
     $_ENV['DB_PASS']
 );
 
-if (!isset($_SESSION['id_utilisateur'])) {
-    header("Location:login-template.php");
-    exit;
-}
 $event_model=new EvenementsModel();
 $event_controller=new EvenementController($event_model);
 
@@ -51,6 +47,8 @@ $pastEvents=json_decode($pastEventsJson,true);
     <link rel="stylesheet" type="text/css" href="../../assets/css/owl-carousel.css">
     <link rel="stylesheet" href="../../assets/css/tooplate-artxibition.css">
     <link rel="stylesheet" href="../../assets/vendor/css/core.css">
+
+    
 <!--
 
 Tooplate 2125 ArtXibition
@@ -62,18 +60,6 @@ https://www.tooplate.com/view/2125-artxibition
     
     <body>
     
-    <!-- ***** Preloader Start ***** -->
-    <div id="js-preloader" class="js-preloader">
-      <div class="preloader-inner">
-        <span class="dot"></span>
-        <div class="dots">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    </div>
-    <!-- ***** Preloader End ***** -->
     
     <!-- ***** Header Area Start ***** -->
     <!-- <header class="header-area header-sticky">
@@ -325,6 +311,7 @@ https://www.tooplate.com/view/2125-artxibition
     
     <!-- Global Init -->
     <script src="../../assets/js/custom.js"></script>
+
   </body>
         
   <style>

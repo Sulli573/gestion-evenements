@@ -4,6 +4,7 @@ require_once __DIR__ . '/../../../config/loadEnv.php';
 require_once __DIR__ . '/../../../models/OrganisateurModel.php';
 require_once __DIR__ . '/../../../controller/OrganisateurController.php';
 require_once __DIR__ . '/../../../config/sessionManager.php';
+require_once __DIR__ . '/../../../middlewares/authAdmin.php';
 require_once __DIR__ . '/../../partial/navbar.php';
 
 loadEnv(__DIR__ . '/../../../.env');

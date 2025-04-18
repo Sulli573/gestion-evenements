@@ -12,15 +12,25 @@ class InscrireModel extends DefaultModel {
 
     public function create($id_utilisateur,$id_evenement,$nbr_ticket){
         try{
+            $eventQuery="SELECT place_restantes FROM evenements WHERE id_evenement=:id_event";
+            $stmt=$this->db->prepare($eventQuery);
+            $stmt->bindParam(':id_event',$id_evenement,PDO::PARAM_INT);
+            $stmt->execute();
+            $data=$stmt->fetch(PDO::FETCH_ASSOC);
+            $place_restante = (int)$data['place_restantes'];
+                if ($place_restante < $nbr_ticket) {
+                    return 'Nombre de tickets libres insuffisant';
+                }
+
             $query="INSERT INTO inscrire (id_utilisateur ,id_evenement ,date_inscription,nbr_ticket) 
                     VALUES(:id_user,:id_event,:date_inscription,:nbr_ticket)";
             $stmt=$this->db->prepare($query);
             $date_inscription=date('Y-m-d H:i:s');
-            $stmt->bindParam(':id_user',$id_utilisateur,PDO::PARAM_STR);
-            $stmt->bindParam(':id_event',$id_evenement,PDO::PARAM_STR);
+            $stmt->bindParam(':id_user',$id_utilisateur,PDO::PARAM_INT);
+            $stmt->bindParam(':id_event',$id_evenement,PDO::PARAM_INT);
             $stmt->bindParam(':date_inscription',$date_inscription,PDO::PARAM_STR);
             $stmt->bindParam(':nbr_ticket',$nbr_ticket,PDO::PARAM_INT);
-            if($stmt->execute()){
+            if($stmt->execute()) {
                 return true;
             }else{
                 return 'Erreur lors de l\'insertion';
@@ -67,7 +77,12 @@ class InscrireModel extends DefaultModel {
         }
     }
     public function afficherInscriptionByUserId($userId) {
-        $sql="SELECT * FROM inscrire i JOIN evenements e ON i.id_evenement = e.id_evenement WHERE i.id_evenement = e.id_evenement AND id_utilisateur=:userId AND e.date_evenement >= NOW()";
+        $sql="SELECT i.code,i.id_utilisateur,i.id_evenement,i.date_inscription,SUM(i.nbr_ticket) as nbr_ticket,
+        e.nom_evenement,e.date_evenement,e.description_evenement,e.place_restantes,e.prix_evenement,e.image_evenement,
+        l.nom_lieu FROM inscrire i
+            join evenements e on i.id_evenement=e.id_evenement 
+            JOIN lieu l on l.id=e.id_lieu  
+            WHERE id_utilisateur=:userId AND e.date_evenement >= NOW()";
         $stmt=$this->db->prepare($sql);
         $stmt->bindParam(':userId',$userId,PDO::PARAM_INT);
         $stmt->execute();
