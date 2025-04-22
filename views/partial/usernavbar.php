@@ -20,7 +20,6 @@
             <nav class="main-nav">
                 <a href="index.html" class="logo">Site<em> Événement</em></a>
                 <ul class="nav">
-                    <li><a href="/PHP2/views/template/home.php">Home</a></li>
                     <li><a href="/PHP2/views/template/shows-events.php">Événements</a></li>                    
                     <?php require_once __DIR__ . '/../../config/sessionManager.php';
                     if(isset($_SESSION['role_utilisateur']) && $_SESSION['role_utilisateur'] === 'user'): ?> 

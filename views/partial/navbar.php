@@ -24,8 +24,6 @@
                     <li><a href="/PHP2/views/template/admin/lieux.php">Lieux</a></li>
                     <li><a href="/PHP2/views/template/admin/organisateur.php">Organisateurs</a></li>
                     <li><a href="/PHP2/views/template/admin/utilisateurs.php">Utilisateurs</a></li>
-                    <li><a href="/PHP2/views/template/inscription-utilisateurs.php">Inscription</a></li>
-                    <li><a href="" class="active">Paramètre</a><li>
                     <li><a href="" id="logout-link">Deconnexion</a></li>
                    
                 </ul>        

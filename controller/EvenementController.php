@@ -24,16 +24,17 @@ class EvenementController{
             }
         }
         
-        $nom=htmlspecialchars(trim($data['nom_evenement']),ENT_QUOTES,'UTF-8');
-        $date=htmlspecialchars(trim($data['date_evenement']),ENT_QUOTES,'UTF-8');
-        $description=htmlspecialchars(trim($data['description_evenement']),ENT_QUOTES,'UTF-8');
-        $eventStart=htmlspecialchars(trim($data['heure_debut']),ENT_QUOTES,'UTF-8');
-        $eventEnd=htmlspecialchars(trim($data['heure_fin']),ENT_QUOTES,'UTF-8');
-        $prix=htmlspecialchars(trim($data['prix_evenement']),FILTER_VALIDATE_FLOAT);
-        $place=htmlspecialchars(trim($data['place_evenement']),ENT_QUOTES,'UTF-8');
-        $type=htmlspecialchars(trim($data['type_evenement']),ENT_QUOTES,'UTF-8');
-        $id_lieu=htmlspecialchars(trim($data['id_lieu']),FILTER_VALIDATE_INT);
-        $id_organisateur=filter_var(trim($data['id_organisateur']),FILTER_VALIDATE_INT);
+        $nom=$data['nom_evenement'];
+        //Sans ça le message evenement "ajouté avec succès" ne s'ajoutait plus lors de l'ajout d'un evenement(problème à cause de wamp?avec xamp fonctionne sans OU parce que j'ai enlevé htmlspecialcarac)
+        $date = is_array($data['date_evenement']) ? $data['date_evenement'][0] : $data['date_evenement'];
+        $description=$data['description_evenement'];
+        $eventStart=$data['heure_debut'];
+        $eventEnd=$data['heure_fin'];
+        $prix=$data['prix_evenement'];
+        $place=$data['place_evenement'];
+        $type=$data['type_evenement'];
+        $id_lieu=$data['id_lieu'];
+        $id_organisateur=$data['id_organisateur'];
 
         if(!$id_lieu){
             return json_encode(["status" => "error","message" => "ID lieu invalide!!"]);

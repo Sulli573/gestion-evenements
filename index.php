@@ -5,6 +5,7 @@ require_once __DIR__ . '/config/DatabaseManager.php';
 require_once __DIR__ . '/config/loadEnv.php';
 require_once __DIR__ . '/config/sessionManager.php';
 
+
 loadEnv(__DIR__ . '/.env');
 
 $database = new DatabaseManager(
@@ -18,6 +19,7 @@ $database = new DatabaseManager(
 $router=new AltoRouter();
 $router->setBasePath('/PHP2');
 require_once __DIR__ . '/routes/apiRoutes.php';
+
 
 $match=$router->match();
 
