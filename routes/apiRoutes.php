@@ -185,6 +185,6 @@ $router->map('GET','/api/inscrire',function() use ($inscrireController){
 });
 
 
-//Annuler inscription
+
 
 ?>

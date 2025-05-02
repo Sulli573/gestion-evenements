@@ -43,7 +43,7 @@ if (!isset($inscription['inscription']) || empty($inscription['inscription'])) {
     <meta name="description" content="">
     <meta name="author" content="Tooplate">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
-    <title>Event Artisanat</title>
+    <title>Site Événement</title>
     <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/owl-carousel.css">
@@ -66,8 +66,8 @@ https://www.tooplate.com/view/2125-artxibition
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2>Our Shows & Events</h2>
-                    <span>Check out upcoming and past shows & events.</span>
+                    <h2>Liste de vos événements</h2>
+                    <span></span>
                 </div>
             </div>
         </div>
@@ -83,7 +83,7 @@ https://www.tooplate.com/view/2125-artxibition
                                 <article id='tabs-1'>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <div class="heading"><h2>Upcoming Events</h2></div>
+                                            <div class="heading"><h2>Événement(s) à venir</h2></div>
                                         </div>
                                         <?php if(!empty($inscription['inscription']) && is_array($inscription['inscription'])) :?>
                                             <?php foreach($inscription['inscription'] as $value):?>
@@ -93,7 +93,7 @@ https://www.tooplate.com/view/2125-artxibition
                                                             <div class="col-lg-4">
                                                                 <div class='left-content'>
                                                                     <h4><?=htmlspecialchars($value['nom_evenement']) ?></h4>
-                                                                    <p><?=htmlspecialchars($value['description_evenement']) ?null ?></p>
+                                                                    <p><?=htmlspecialchars($value['description_evenement']) ?? '' ?></p>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-4">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 22 avr. 2025 à 04:44
+-- Généré le : ven. 02 mai 2025 à 14:56
 -- Version du serveur : 8.2.0
 -- Version de PHP : 8.2.13
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `evenements` (
   PRIMARY KEY (`id_evenement`),
   KEY `evenements_organisateur_FK` (`id_organisateur`),
   KEY `evenements_lieu0_FK` (`id_lieu`)
-) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `evenements`
@@ -55,9 +55,8 @@ CREATE TABLE IF NOT EXISTS `evenements` (
 INSERT INTO `evenements` (`id_evenement`, `nom_evenement`, `date_evenement`, `heure_debut`, `heure_fin`, `description_evenement`, `place_evenement`, `place_restantes`, `prix_evenement`, `image_evenement`, `type_evenement`, `is_finish`, `id_organisateur`, `id_lieu`) VALUES
 (12, 'Concert Rock and Roll des chats!!', '2025-06-02 00:00:00', '00:00:00', '00:00:00', 'Un concert rock en plein air de folie avec nala et khaleesi.', 501, 498, 20, '', 'Concerts', b'00', 3, 1),
 (13, 'Conférence Tech', '2023-07-20 00:00:00', '00:00:00', '00:00:00', 'Conférence sur les nouvelles technologies.', 300, 300, 0, 'conference_tech.jpg', 'Conférence', b'00', 3, 1),
-(77, 'Pièce de théâtre &quot;Pièce Montée&quot;', '2025-07-10 00:00:00', '20:00:00', '21:30:00', 'Comique', 200, 197, 30, '77.png', 'Théâtre', b'00', 3, 1),
 (78, 'Garorok', '2025-04-08 00:00:00', '08:00:00', '23:00:00', 'Festival de rock and roll', 400, 400, 40, '78.png', 'Festival', b'00', 3, 6),
-(79, 'Pièce de théatre', '0000-00-00 00:00:00', '10:00:00', '10:00:00', 'dadzadz', 200, 200, 50, '', 'théatre', b'00', 3, 1);
+(149, 'Les petits clowns', '2025-06-25 00:00:00', '18:00:00', '19:00:00', 'Pièce de théâtre des enfants de l\'école de la paix', 30, 29, 5, '149.png', 'pièce de théâtre', b'00', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -75,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `inscrire` (
   PRIMARY KEY (`code`),
   KEY `id_utilisateur` (`id_utilisateur`),
   KEY `id_evenement` (`id_evenement`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `inscrire`
@@ -89,7 +88,8 @@ INSERT INTO `inscrire` (`code`, `id_utilisateur`, `id_evenement`, `nbr_ticket`, 
 (5, 14, 12, 1, '2025-04-15'),
 (6, 14, 12, 1, '2025-04-15'),
 (7, 15, 77, 1, '2025-04-17'),
-(8, 15, 77, 1, '2025-04-17');
+(8, 15, 77, 1, '2025-04-17'),
+(9, 17, 149, 1, '2025-05-02');
 
 --
 -- Déclencheurs `inscrire`
@@ -124,10 +124,7 @@ CREATE TABLE IF NOT EXISTS `lieu` (
 
 INSERT INTO `lieu` (`id`, `nom_lieu`, `adresse_lieu`) VALUES
 (1, 'Salle des Fêtes', '09 rue de la Liberté, 75000 Paris'),
-(6, 'Terrain de foot', '8 place du gazon'),
-(7, 'èu', 'uè'),
-(8, 'èu', '30 avenue du loup'),
-(9, 'èu', '45 rue de la paix');
+(6, 'Terrain de foot', '8 place du gazon');
 
 -- --------------------------------------------------------
 
@@ -167,18 +164,16 @@ CREATE TABLE IF NOT EXISTS `user_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `token` (`token`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `user_tokens`
 --
 
 INSERT INTO `user_tokens` (`id`, `user_id`, `token`, `created_at`) VALUES
-(59, 14, '96e12cbd266daffb352e5c21e6fb92e48a541070b329fe0e7a71d3a6264bab57', '2025-04-22 04:35:30'),
+(61, 15, '5879539f5b1eb211c2647f119ca5bc23bf49618b2e1eb8c4acaa5cb29a3c6d1a', '2025-04-29 08:33:49'),
 (58, 15, 'b23d10f4a768ae73a1e9bede7a23a5f9f0d61c6ef487f80c6d7723fe2910075b', '2025-04-20 13:35:03'),
-(57, 14, '10ceeb7249f4dec521c919872229da6053e75c7bb1b84f9b1bf133c92ecf99c7', '2025-04-20 13:34:33'),
-(51, 16, 'b7897e8c390c70f1b022879fa347523df2c83b654cefa02d07e8063da1deff7d', '2025-04-17 19:41:06'),
-(56, 14, 'b776d0f28456374d2b27e145c99ff87db3c09ecacdbd5bab080df21d7486b4d6', '2025-04-20 13:32:37');
+(51, 16, 'b7897e8c390c70f1b022879fa347523df2c83b654cefa02d07e8063da1deff7d', '2025-04-17 19:41:06');
 
 -- --------------------------------------------------------
 
@@ -198,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `motif_suspension` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id_utilisateur`),
   UNIQUE KEY `unique_email` (`courriel_utilisateur`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
@@ -207,7 +202,8 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 INSERT INTO `utilisateur` (`id_utilisateur`, `nom_utilisateur`, `courriel_utilisateur`, `mot_de_passe_utilisateur`, `role_utilisateur`, `is_active`, `is_suspended`, `motif_suspension`) VALUES
 (14, 'Sulli', 'sulli@123.com', '$2y$10$NN1r7rOX6dzjf4xG5p7E7eSMDrg0LwPQN1wHaONSxAQLaI6an64xS', 'admin', 0, 0, NULL),
 (15, 'sulli', 'sulli@1234.com', '$2y$10$BQD6jcqZt8BYgg5BnEKxPe0qYSC1TLdMeR.3RDy1ypYYqxNYOYk6u', 'user', 0, 0, NULL),
-(16, 'sulli2', 'sulli@12345.com', '$2y$10$RONJ/CRUZamb/diHmUHZ.O4LbKqTS15aCOaLT/KX7u02ugmRk.07y', 'user', 0, 0, NULL);
+(16, 'sulli2', 'sulli@12345.com', '$2y$10$RONJ/CRUZamb/diHmUHZ.O4LbKqTS15aCOaLT/KX7u02ugmRk.07y', 'user', 0, 0, NULL),
+(17, 'test', 'test@test.com', '$2y$10$/Wdvga2/i4Pan9WiGwcBQO2y7N7Fq58vTPat5L1livRISx5FFzTYi', 'user', 0, 1, '');
 
 --
 -- Contraintes pour les tables déchargées

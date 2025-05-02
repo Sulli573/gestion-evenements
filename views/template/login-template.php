@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Connexion</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
@@ -93,11 +93,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="col-md-6 left-section">
                     <div class="text-center mb-4">
                         <i class="fas fa-crow fa-2x me-2" style="color: #709085;"></i>
-                        <span class="h1 fw-bold">Logo</span>
                     </div>
 
                     <form style="max-width: 400px; margin: auto;" method="POST" action="">
-                        <h3 class="fw-normal mb-4 text-center">Log in</h3>
+                        <h3 class="fw-normal mb-4 text-center">Se connecter</h3>
 
                         <!-- Message d'erreur -->
                         <?php if (!empty($message)): ?>
@@ -108,25 +107,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="form-outline mb-3">
                             <input type="email" id="email" name="email" class="form-control form-control-lg" required />
-                            <label class="form-label" for="email">Email address</label>
+                            <label class="form-label" for="email">Courriel</label>
                         </div>
 
                         <div class="form-outline mb-3">
                             <input type="password" id="password" name="password" class="form-control form-control-lg" required />
-                            <label class="form-label" for="password">Password</label>
+                            <label class="form-label" for="password">Mot de passe</label>
                         </div>
 
                         <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?? ''; ?>">
 
                         <div class="mb-4 text-center">
-                            <button class="btn btn-info btn-lg w-100" type="submit">Login</button>
+                            <button class="btn btn-info btn-lg w-100" type="submit">Connexion</button>
                         </div>
 
-                        <p class="small text-center">
-                            <a href="#" class="text-muted">Forgot password?</a>
-                        </p>
                         <p class="text-center">
-                            Don't have an account? <a href="/PHP2/views/template/signup-template.php" class="link-info">Register here</a>
+                            Pas encore de compte? <a href="/PHP2/views/template/signup-template.php" class="link-info">Cliquez ici</a>
                         </p>
                     </form>
                 </div>

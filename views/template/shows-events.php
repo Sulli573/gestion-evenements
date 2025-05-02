@@ -37,7 +37,7 @@ $pastEvents=json_decode($pastEventsJson,true);
     <meta name="description" content="">
     <meta name="author" content="Tooplate">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
-    <title>Event Artisanat</title>
+    <title>Site Événement</title>
     <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/owl-carousel.css">
@@ -251,7 +251,7 @@ https://www.tooplate.com/view/2125-artxibition
             eventModal.addEventListener('show.bs.modal',function(event){
                 var button = event.relatedTarget;
                 
-                //recuperer les donnees stockes dant attribut data
+                //recuperer les donnees stockes dans attribut data
                 var nom=button.getAttribute('data-nom');
                 var description=button.getAttribute('data-description');
                 var date=button.getAttribute('data-date');

@@ -109,7 +109,7 @@ if(!isset($allLieux['lieux']) || empty($allLieux['lieux'])) {
                       </tr>
                     </thead>
                     <tbody>
-                      <?php var_dump($response);?>
+                      
                       <!--Contenu des colonnes va créer une ligne par événement avec valeurs dans td-->
                       <?php foreach($allLieux['lieux'] as $lieu) :?> 
                         <tr>

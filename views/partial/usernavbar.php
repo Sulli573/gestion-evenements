@@ -24,11 +24,11 @@
                     <?php require_once __DIR__ . '/../../config/sessionManager.php';
                     if(isset($_SESSION['role_utilisateur']) && $_SESSION['role_utilisateur'] === 'user'): ?> 
                     <li><a href="/PHP2/views/template/tickets.php">Mes tickets</a></li>
-                    <li><a href="" class="active">Paramètre</a><li>
                     <li><a href="" id="logout-link">Deconnexion</a></li>
                     <?php endif; ?>
                     <?php if(!isset($_SESSION['role_utilisateur'])): ?> 
                     <li><a href="/PHP2/views/template/login-template.php">Login</a></li>
+                    <li><a href="signup-template.php">S'inscrire</a></li>
                     <?php endif; ?>
                    
                 </ul>        

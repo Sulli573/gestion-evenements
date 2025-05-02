@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Page</title>
+    <title>Inscription</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css">
@@ -85,11 +85,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="col-md-6 left-section">
                     <div class="text-center mb-4">
                         <i class="fas fa-user-plus fa-2x me-2" style="color: #709085;"></i>
-                        <span class="h1 fw-bold">Signup</span>
+                        <span class="h1 fw-bold">Inscription</span>
                     </div>
 
                     <form style="max-width: 400px; margin: auto;" method="POST" action="">
-                        <h3 class="fw-normal mb-4 text-center">Create an account</h3>
+                        <h3 class="fw-normal mb-4 text-center">Créer un compte</h3>
 
                         <!-- Message d'erreur -->
                         <?php if(!empty($message)):?>
@@ -100,27 +100,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="form-outline mb-3">
                             <input type="text" id="nom" name="nom" class="form-control form-control-lg" required />
-                            <label class="form-label" for="nom">Full Name</label>
+                            <label class="form-label" for="nom">Nom</label>
                         </div>
 
                         <div class="form-outline mb-3">
                             <input type="email" id="email" name="email" class="form-control form-control-lg" required />
-                            <label class="form-label" for="email">Email address</label>
+                            <label class="form-label" for="email">Courriel</label>
                         </div>
 
                         <div class="form-outline mb-3">
                             <input type="password" id="password" name="password" class="form-control form-control-lg" required />
-                            <label class="form-label" for="password">Password</label>
+                            <label class="form-label" for="password">Mot de passe</label>
                         </div>
 
                         <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?? ''; ?>">
 
                         <div class="mb-4 text-center">
-                            <button class="btn btn-info btn-lg w-100" type="submit">Sign Up</button>
+                            <button class="btn btn-info btn-lg w-100" type="submit">S'inscrire</button>
                         </div>
 
                         <p class="text-center">
-                            Already have an account? <a href="/PHP2/views/template/login-template.php" class="link-info">Log in here</a>
+                            Déjà enregistré? <a href="/PHP2/views/template/login-template.php" class="link-info">Se connecter</a>
                         </p>
                     </form>
                 </div>

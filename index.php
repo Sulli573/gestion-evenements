@@ -32,16 +32,4 @@ if($match && is_callable($match['target'])) {
     exit;
 }
 
-
-//le contenu de la variable $match
-// $match=[
-//     'target'=> function($id) use ($eventController){
-//         echo $eventController->getEventById($id);
-//     },
-
-//     'parms' => [
-//         'id' =>3
-//     ],
-//     'name'=>null
-// ]
 ?>
